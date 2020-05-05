@@ -46,7 +46,7 @@ function App() {
                 onChange={Add}
               ></input>
             </td>
-            <td className="td">{value.quantity*value.price} €</td>
+            <td className="td">{value.quantity * value.price} €</td>
           </tr>
         ))} 
       </tbody>
