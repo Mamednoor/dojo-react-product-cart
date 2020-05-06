@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Array2 from './components/Array2';
+// import AppClass from './components/AppClass';
+import AppHook from './AppHook'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Array2 />
+    <AppHook />
   </React.StrictMode>,
   document.getElementById('root')
 );
