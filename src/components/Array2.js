@@ -34,35 +34,50 @@ class Array2 extends Component {
 
         // this.setState({ProductList : product})
 
-    handleChange = (id,e) => {
-        //return e.target.value
-        // console.log(e.target.value)
-        //  console.log(this.state.initialProductList[id].quantity)
-        //  console.log(...this.state.initialProductList)
-         //console.log({ ...this.state.initialProductList[id], this.state.intialProductList[id].quantity : e.target.value})
-         //this.setState({ initialProductList: { ...this.state.initialProductList[id], quantity : e.target.value}})
-        let quantite = parseInt(e.target.value)
-         //console.log(typeof quantite,quantite===0)
-        if (quantite===0) { 
-            if(window.confirm("Etes-vous sûr de bien vouloir retirer ce produit de la liste ?")){
-            this.setState(prevState => ({
-                initialProductList: prevState.initialProductList
-                .map(product => (product.id === id ? Object.assign(product, {quantity: quantite}): product))
-            }))
-            }
-        }
-    
-        else {
-            this.setState(prevState => ({
-            initialProductList: prevState.initialProductList.map(
-            product => (product.id === id ? Object.assign(product, { quantity: quantite }) : product))
-            }))
+handleChange = (id,e) => {
+    //return e.target.value
+    // console.log(e.target.value)
+    //  console.log(this.state.initialProductList[id].quantity)
+    //  console.log(...this.state.initialProductList)
+     //console.log({ ...this.state.initialProductList[id], this.state.intialProductList[id].quantity : e.target.value})
+     //this.setState({ initialProductList: { ...this.state.initialProductList[id], quantity : e.target.value}})
+    let quantite = parseInt(e.target.value)
+     //console.log(typeof quantite,quantite===0)
+    if (quantite===0) { 
+        if(window.confirm("Etes-vous sûr de bien vouloir retirer ce produit de la liste ?")){
+        this.setState(prevState => ({
+            initialProductList: prevState.initialProductList
+            .map(product => (product.id === id ? Object.assign(product, {quantity: quantite}): product))
+        }))
         }
     }
 
+    else {
+        this.setState(prevState => ({
+        initialProductList: prevState.initialProductList.map(
+        product => (product.id === id ? Object.assign(product, { quantity: quantite }) : product))
+        }))
+    }
+}
+
+handleAddingProduct = (e) => {
+    e.preventDefault()
+    let etat = this.state.initialProductList
+    let aleatoire = Math.floor(Math.random()*100)
+    let nom = document.getElementById("newProduct").value
+    let prix = document.getElementById("newPrice").value
+    etat.push({ id: aleatoire, name: nom, price: prix, quantity: 1 })
+
+    // console.log("poulet2:", etat)
+    // console.log("poulet3:", etat.push({ id: 100, name: 'Pdt 1', price: 50, quantity: 1 }))
+    // ))
+    this.setState(prevState => ({
+    initialProductList : etat}))
+    }
 
     render () {
     const {initialProductList} = this.state
+    
     return (
         <div className="App">
             <h1>Ma commande</h1>
@@ -85,7 +100,7 @@ class Array2 extends Component {
             </table>
             <p>Montant de la commande :{initialProductList.map(productPrice => productPrice.quantity * productPrice.price).reduce((a, b) => a + b)} €</p>
             <div>
-                <form>
+                <form onSubmit={this.handleAdd}>
                     <h2>Ajouter un produit</h2>
                         <label >Nom :</label>
                         <input className="field" type="text" id="name" name="name" onChange="" value="" required/>                        
